@@ -12,8 +12,4 @@ const AccountSchema = mongoose.Schema({
     }
 });
 
-AccountSchema.post('find', (err, doc, next) => {
-    console.log("schema error")
-})
-
 module.exports = mongoose.model('Account', AccountSchema);
