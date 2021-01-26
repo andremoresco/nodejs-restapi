@@ -1,7 +1,9 @@
 class ValidationError extends Error {
-    constructor(message) {
-        super(message)
+    constructor(args) {
+        super(args)
         this.code = "VALIDATION_ERROR";
-        this.message = message;
+        this.msg = args;
     }
 }
+
+module.exports = ValidationError;

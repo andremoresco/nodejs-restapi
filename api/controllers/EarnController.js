@@ -1,5 +1,4 @@
 const earnService = require('../service/EarnService');
-const earn = require('../../models/Earn');
 const Earn = require('../../models/Earn');
 
 const find = async (req, res) => {
@@ -39,8 +38,15 @@ const create = async (req, res) => {
         res.json(createdEarn);
     } catch(err) {
         console.log(err);
-        res.status(500).json({message: err});
+        if (err.code == "VALIDATION_ERROR") {
+            res.status(400).json(err);
 
+        } else if (err.code == "ACCOUNT_NOT_FOUND_ERROR") {
+            res.status(400).json(err);
+    
+        } else {
+            res.status(500).json({message: err});
+        }
     }
 }
 

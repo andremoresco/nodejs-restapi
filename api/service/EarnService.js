@@ -1,5 +1,5 @@
-const Earn = require('../../models/Earn');
-const accountService = require('./AccountsService');
+const Earn = require('../../models/Earn')
+const accountService = require('./AccountsService')
 const ValidationError = require('../../errors/ValidationError')
 
 const find = async () => {
@@ -10,10 +10,16 @@ const findById = async (id) => {
     return await Earn.findById(id);
 }
 
+const findByAccount = async (accountId) => {
+    return await Earn.find({account: accountId});
+}
+
 const create = async (earn) => {
     if (earn.account == null) {
-        throw new ValidationError('Account cannot be null!');
+        throw new ValidationError("Account cannot be null!");
     }
+
+    await accountService.isValid(earn.account);
 
     return await earn.save();
 }
@@ -25,6 +31,7 @@ const remove = async (id) => {
 module.exports = {
     find,
     findById,
+    findByAccount,
     create,
     remove
 }
