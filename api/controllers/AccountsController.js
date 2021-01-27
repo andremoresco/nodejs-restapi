@@ -1,5 +1,6 @@
 const accountService = require('../service/AccountsService');
 const Account = require('../../models/Account');
+const AccountRemoveForbidden = require('../../errors/AccountRemoveForbidden');
 
 const find = async (req, res) => {
     try {
@@ -50,7 +51,11 @@ const remove = async (req, res) => {
             res.status(404).json({message: "Account id " + req.params.id + " not found!"});
         }
     } catch (err) {
-        res.status(500).json({message: err});
+        if (err instanceof AccountRemoveForbidden) {
+            res.status(403).json(err);
+        } else {
+            res.status(500).json(err);
+        }
     }
 }
 

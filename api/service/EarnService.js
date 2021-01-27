@@ -1,6 +1,5 @@
-const Earn = require('../../models/Earn')
-const accountService = require('./AccountsService')
-const ValidationError = require('../../errors/ValidationError')
+const Earn = require('../../models/Earn');
+const ValidationError = require('../../errors/ValidationError');
 
 const find = async () => {
     return await Earn.find();
@@ -19,7 +18,8 @@ const create = async (earn) => {
         throw new ValidationError("Account cannot be null!");
     }
 
-    await accountService.isValid(earn.account);
+    const AccountsService = require('../service/AccountsService');
+    await AccountsService.isValid(earn.account);
 
     return await earn.save();
 }

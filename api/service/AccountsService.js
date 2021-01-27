@@ -1,5 +1,4 @@
 const Account = require('../../models/Account');
-const earnService = require('./EarnService');
 const AccountNotFoundError = require('../../errors/AccountNotFoundError');
 const AccountRemoveForbidden = require('../../errors/AccountRemoveForbidden');
 
@@ -23,10 +22,7 @@ const remove = async (id) => {
         throw new AccountNotFoundError();
     }
 
-    const earns = await earnService.findByAccount(id);
-    console.log(earns);
-
-    if (earns && earns.length) {
+    if (await containEarns(id)) {
         throw new AccountRemoveForbidden("There is earns in this account.")
     }
 
@@ -34,7 +30,6 @@ const remove = async (id) => {
 }
 
 const isValid = async (accountId) => {
-    console.log("done")
     if (!accountId.match(/^[0-9a-fA-F]{24}$/)) {
         throw new ValidationError("Account ID Invalid!");
     }
@@ -44,6 +39,12 @@ const isValid = async (accountId) => {
     if (account == null) {
         throw new AccountNotFoundError();
     }
+}
+
+const containEarns = async (accountId) => {
+    const earnService = require('../service/EarnService');
+    const earns = await earnService.findByAccount(accountId);
+    return earns && earns.length;
 }
 
 module.exports = {

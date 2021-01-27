@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const earnController  = require('../api/controllers/EarnController');
-const { route } = require('./AccountsRoute');
 const jsonParser = require('body-parser').json()
 
 
