@@ -1,10 +1,9 @@
-const earnService = require('../service/EarnService');
-const Earn = require('../../models/Earn');
+const transactionsService = require('../service/TransactionsService');
 
 const find = async (req, res) => {
     try {
-        const earns = await earnService.find();
-        res.json(earns);
+        const transactions = await transactionsService.find();
+        res.json(transactions);
     } catch (err) {
         res.status(404).json({message: err});
     }
@@ -12,30 +11,23 @@ const find = async (req, res) => {
 
 const findById = async (req, res) => {
     try {
-        const earn = await earnService.findById(req.params.earnId);
-        if (earn == null) {
+        const transaction = await transactionsService.findById(req.params.id);
+        if (transaction == null) {
             res.status(404).end();
         } else {
-            res.json(earn);
+            res.json(transaction);
         }
     } catch (err) {
         res.status(404).json({message: err});
     }
 }
 
-const create = async (req, res) => {
+const save = async (req, res) => {
     try {
+        console.log(req.params)
         console.log(req.body);
-
-        const earn = new Earn({
-            description: req.body.description,
-            value: req.body.value,
-            date: req.body.date,
-            account: req.body.account
-        })
-
-        const createdEarn = await earnService.create(earn);
-        res.json(createdEarn);
+        const createdTransaction = await transactionsService.save(req.body);
+        res.json(createdTransaction);
     } catch(err) {
         console.log(err);
         if (err.code == "VALIDATION_ERROR") {
@@ -56,12 +48,12 @@ const remove = async (req, res) => {
             res.status(400).json({message: "'Id' cannot be null"})
         }
 
-        const removedEarn = await earnService.remove(req.params.id);
+        const removedTransaction = await transactionsService.remove(req.params.id);
 
-        if (removedEarn.deletedCount > 0) {
+        if (removedTransaction.deletedCount > 0) {
             res.status(200).end();
         } else {
-            res.status(404).json({message: "Account id " + req.params.id + " not found!"});
+            res.status(404).json({message: "Transaction id " + req.params.id + " not found!"});
         }
     } catch(err) {
         res.status(500).json({message: err});
@@ -71,6 +63,6 @@ const remove = async (req, res) => {
 module.exports = {
     find,
     findById,
-    create,
-    remove
+    save,
+    remove,
 }

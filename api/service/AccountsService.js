@@ -22,9 +22,9 @@ const remove = async (id) => {
         throw new AccountNotFoundError();
     }
 
-    if (await containEarns(id)) {
-        throw new AccountRemoveForbidden("There is earns in this account.")
-    }
+    // if (await containIncomes(id)) {
+    //     throw new AccountRemoveForbidden("There is earns in this account.")
+    // }
 
     return await Account.deleteOne({_id: id});
 }
@@ -41,10 +41,10 @@ const isValid = async (accountId) => {
     }
 }
 
-const containEarns = async (accountId) => {
-    const earnService = require('../service/EarnService');
-    const earns = await earnService.findByAccount(accountId);
-    return earns && earns.length;
+const containIncomes = async (accountId) => {
+    const incomesService = require('./IncomesService');
+    const incomes = await incomesService.findByAccount(accountId);
+    return incomes && incomes.length;
 }
 
 module.exports = {

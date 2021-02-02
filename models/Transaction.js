@@ -1,11 +1,15 @@
 const mongoose = require('mongoose');
 
-const EarnSchema = mongoose.Schema({
+const TransactionSchema = mongoose.Schema({
     description: {
         type: String,
         required: true
     },
     value: {
+        type: Number,
+        required: true
+    },
+    type: {
         type: String,
         required: true
     },
@@ -15,10 +19,8 @@ const EarnSchema = mongoose.Schema({
         default: Date.now
     },
     account: {
-        type: String,
-        required: true
+        type: String
     }
-    
-});
+})
 
-module.exports = mongoose.model('Earn', EarnSchema);
+module.exports = mongoose.model('Transaction', TransactionSchema);
