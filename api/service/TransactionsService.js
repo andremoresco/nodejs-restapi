@@ -13,8 +13,6 @@ const save = async (doc) => {
     return await transaction.save();
 }
 
-
-
 const remove = async (id) => {
     return await Transaction.deleteOne({_id: id});
 }
