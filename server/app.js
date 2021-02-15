@@ -1,6 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
-require('./database/DbConnection')
+require('../database/database')
 
 const accountsRoute = require('./routes/AccountsRoute');
 const incomesRoute = require('./routes/IncomesRoute');

@@ -1,4 +1,3 @@
-const ValidationError = require('../../errors/ValidationError');
 const transactionsService = require('./TransactionsService');
 
 const find = async () => {
@@ -7,6 +6,10 @@ const find = async () => {
 
 const findById = async (id) => {
     return await transactionsService.findById(id);
+}
+
+const findBetweenDates = async (startDate, endDate) => {
+    return await transactionsService.find({type: 'income', date: {$gte: startDate, $lte: endDate}});
 }
 
 const findByAccount = async (accountId) => {
@@ -27,5 +30,6 @@ module.exports = {
     findById,
     findByAccount,
     create,
-    remove
+    remove,
+    findBetweenDates
 }

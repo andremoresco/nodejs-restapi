@@ -1,6 +1,6 @@
-const Account = require('../../models/Account');
-const AccountNotFoundError = require('../../errors/AccountNotFoundError');
-const AccountRemoveForbidden = require('../../errors/AccountRemoveForbidden');
+const Account = require('../models/Account');
+const AccountNotFoundError = require('../errors/AccountNotFoundError');
+const AccountRemoveForbidden = require('../errors/AccountRemoveForbidden');
 
 const find = async () => {
     return await Account.find();

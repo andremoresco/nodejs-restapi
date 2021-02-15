@@ -1,15 +1,17 @@
+const express = require('express');
+const router = express.Router();
 const balanceService = require('../service/BalanceService');
+const jsonParser = require('body-parser').json()
 
-const getBalanceCurrentMonth = async (req, res) => {
+
+router.get('/', async (req, res) => {
     try {
         const balance = await balanceService.getBalanceCurrentMonth();
-        console.log(balance)
         res.json(balance);
     } catch (err) {
         res.status(404).json({message: err});
     }
-}
+});
 
-module.exports = {
-    getBalanceCurrentMonth
-}
+
+module.exports = router;

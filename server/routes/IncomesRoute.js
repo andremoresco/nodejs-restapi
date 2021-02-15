@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const incomesController  = require('../api/controllers/IncomesController');
+const incomesController  = require('../controllers/IncomesController');
 const jsonParser = require('body-parser').json()
 
 

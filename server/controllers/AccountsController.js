@@ -1,6 +1,6 @@
 const accountService = require('../service/AccountsService');
-const Account = require('../../models/Account');
-const AccountRemoveForbidden = require('../../errors/AccountRemoveForbidden');
+const Account = require('../models/Account');
+const AccountRemoveForbidden = require('../errors/AccountRemoveForbidden');
 
 const find = async (req, res) => {
     try {

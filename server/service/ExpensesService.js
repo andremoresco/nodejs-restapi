@@ -12,6 +12,10 @@ const findByAccount = async (accountId) => {
     return await transactionsService.find({account: accountId});
 }
 
+const findBetweenDates = async (startDate, endDate) => {
+    return await transactionsService.find({type: 'expense', date: {$gte: startDate, $lte: endDate}});
+}
+
 const create = async (expense) => {
     expense.type = 'expense';
     return await transactionsService.save(expense);
@@ -26,5 +30,6 @@ module.exports = {
     findById,
     findByAccount,
     create,
-    remove
+    remove,
+    findBetweenDates
 }

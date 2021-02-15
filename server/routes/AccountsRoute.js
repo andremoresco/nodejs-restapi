@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const AccountController  = require('../api/controllers/AccountsController')
+const AccountController  = require('../controllers/AccountsController')
 const jsonParser = require('body-parser').json()
 
 router.get('/', AccountController.find)

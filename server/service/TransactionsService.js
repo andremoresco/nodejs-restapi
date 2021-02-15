@@ -1,4 +1,4 @@
-const Transaction = require('../../models/Transaction');
+const Transaction = require('../models/Transaction');
 
 const find = async (filter) => {
     return await Transaction.find(filter);
@@ -6,6 +6,10 @@ const find = async (filter) => {
 
 const findById = async (id) => {
     return await Transaction.findById(id);
+}
+
+const findBetweenDates = async (startDate, endDate) => {
+    return await Transaction.find({date: {$gte: startDate, $lte: endDate}})
 }
 
 const save = async (doc) => {
@@ -21,5 +25,6 @@ module.exports = {
     find,
     findById,
     save,
-    remove
+    remove,
+    findBetweenDates
 }
