@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const morgan = require('morgan');
 require('../database/database')
 
@@ -11,6 +12,7 @@ const balanceRoute = require('./routes/BalanceRoute');
 
 const app = express();
 
+app.use(cors());
 app.use(morgan('tiny'));
 
 app.use('/accounts', accountsRoute);
@@ -19,4 +21,4 @@ app.use('/transactions', transactionsRoute);
 app.use('/expenses', expensesRoute);
 app.use('/balance', balanceRoute);
 
-app.listen(3000)
+app.listen(8081)
